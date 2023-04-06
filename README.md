@@ -4,27 +4,27 @@ A browser interface based on Gradio library for Stable Diffusion.
 ![](txt2img_Screenshot.png)
 
 ## AWS EC2 Version
-This is a fork of https://github.com/AUTOMATIC1111/stable-diffusion-webui/ based on the main version on 21 Dec 2022.
+This is a fork of https://github.com/marshmellow77/stable-diffusion-webui/.
 
-This repo contains a [setup script](https://github.com/marshmellow77/stable-diffusion-webui/blob/master/setup.sh) that can be run on an EC2 instance as a one-click deployment.
+This repo contains a [setup script](https://github.com/rafabulsing/stable-diffusion-webui-cf/blob/master/setup.sh) that can be run on an EC2 instance as a one-click deployment.
 
 Steps:
 1. Clone this repo via 
 ```
-git clone https://github.com/marshmellow77/stable-diffusion-webui.git
+git clone https://github.com/rafabulsing/stable-diffusion-webui.git
 ```
-2. Run the CloudFormation Template via
+1. Run the CloudFormation Template via
 ```
 aws cloudformation create-stack --stack-name sd-webui-stack --template-body file://stable-diffusion-webui/sd-web-ui-cf-template.yaml
 ```
-3. Get a coffee ☕️ It will take 15-20 minutes until the app is deployed
-4. Retrieve the IP address of the EC2 instance via
+1. Get a coffee ☕️ It will take 15-20 minutes until the app is deployed
+2. Retrieve the IP address of the EC2 instance via
 ```
 aws cloudformation list-stack-resources --stack-name sd-webui-stack --query 'StackResourceSummaries[?ResourceType==`AWS::EC2::EIP`].PhysicalResourceId' --output text
 ```
-5. Open your web browser and navigate to <IP_ADDRESS>:7860
-6. If the app is not working, connect to the EC2 instance and run `netstat -tulpn` to see if the app is running on port 7860
-7. If you want to delete everything, run
+1. Open your web browser and navigate to <IP_ADDRESS>:7860
+2. If the app is not working, connect to the EC2 instance and run `netstat -tulpn` to see if the app is running on port 7860
+3. If you want to delete everything, run
 ```
 aws cloudformation delete-stack --stack-name sd-webui-stack
 ```
