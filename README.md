@@ -1,7 +1,7 @@
 # Stable Diffusion Web UI on EC2
 A browser interface based on Gradio library for Stable Diffusion.
 
-![](txt2img_Screenshot.png)
+![](images/txt2img_Screenshot.png)
 
 ## AWS EC2 Version
 This is a fork of https://github.com/marshmellow77/stable-diffusion-webui/.
