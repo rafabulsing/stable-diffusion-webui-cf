@@ -1,10 +1,3 @@
-# make sure that we're in the correct directory
-cd /home/ubuntu
-
-# clone this repository
-echo 'Cloning the config repository...' >> log.txt
-git clone https://github.com/rafabulsing/stable-diffusion-webui-cf.git
-
 # disable the restart dialogue and install several packages
 echo 'Installing dependencies...' >> log.txt
 sudo sed -i "/#\$nrconf{restart} = 'i';/s/.*/\$nrconf{restart} = 'a';/" /etc/needrestart/needrestart.conf
