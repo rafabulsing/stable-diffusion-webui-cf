@@ -15,7 +15,7 @@ echo 'CUDA installed.'
 echo 'Configuring NGINX...'
 sudo ufw allow 'Nginx HTTP'
 sudo cp stable-diffusion-webui-cf/nginx.conf /etc/nginx/nginx.conf
-sudo systemctl start nginx
+sudo nginx -s reload
 echo 'NGINX configured and running.' >> log.txt
 
 # install git-lfs
