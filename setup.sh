@@ -12,6 +12,9 @@ curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.s
 sudo apt-get install git-lfs
 sudo -u ubuntu git lfs install --skip-smudge
 
+# clone SD repo
+sudo -u ubuntu git clone https://github.com/AUTOMATIC1111/stable-diffusion-webui
+
 # download the SD model v2.1 and move it to the SD model directory
 sudo -u ubuntu git clone --depth 1 https://huggingface.co/stabilityai/stable-diffusion-2-1-base
 cd stable-diffusion-2-1-base/
@@ -30,4 +33,3 @@ sudo chown -R ubuntu:ubuntu stable-diffusion-webui/
 
 # start the server as user 'ubuntu'
 sudo -u ubuntu nohup bash stable-diffusion-webui/webui.sh --listen > log.txt
-
