@@ -1,6 +1,15 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Description: A CloudFormation template to deploy the Stable Diffusion Web UI by Automatic1111
 
+Parameters:
+  Username:
+    Type: String
+    Default: admin
+    
+  Password:
+    Type: String
+    Default: admin
+
 Resources:
   SecurityGroup:
     Type: AWS::EC2::SecurityGroup
@@ -36,11 +45,12 @@ Resources:
       SecurityGroups:
         - Ref: SecurityGroup
       UserData:
-        'Fn::Base64': |
+        'Fn::Base64': !Sub |
             #!/bin/bash
             cd /home/ubuntu
             git clone https://github.com/rafabulsing/stable-diffusion-webui-cf.git
-            bash stable-diffusion-webui-cf/setup.sh -y
+            bash stable-diffusion-webui-cf/setup.sh -y ${Username} ${Password}
+
   MyEIP:
     Type: AWS::EC2::EIP
   MyEIPAssociation:

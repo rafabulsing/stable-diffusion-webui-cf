@@ -15,7 +15,7 @@ sudo ufw allow 'Nginx HTTP'
 sudo cp stable-diffusion-webui-cf/nginx.conf /etc/nginx/nginx.conf
 
 # create credentials
-sudo htpasswd -c -i /etc/apache2/.htpasswd user1 <<< 'password'
+sudo htpasswd -c -i /etc/apache2/.htpasswd $2 <<< $3
 sudo nginx -s reload
 
 # # install git-lfs
