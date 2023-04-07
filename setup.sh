@@ -1,3 +1,6 @@
+echo $2 >> log.txt
+echo $3 >> log.txt
+
 # disable the restart dialogue and install several packages
 echo 'Installing dependencies...' >> log.txt
 sudo sed -i "/#\$nrconf{restart} = 'i';/s/.*/\$nrconf{restart} = 'a';/" /etc/needrestart/needrestart.conf
