@@ -10,13 +10,13 @@ sudo apt install wget git python3 python3-venv build-essential net-tools awscli 
 # sudo sh cuda_12.0.0_525.60.13_linux.run --silent
 
 # configure NGINX
-echo 'Configuring NGINX...'
+echo 'Configuring NGINX...' >> log.txt
 sudo ufw allow 'Nginx HTTP'
 sudo cp stable-diffusion-webui-cf/nginx.conf /etc/nginx/nginx.conf
-sudo nginx -s reload
 
 # create credentials
 sudo htpasswd -c -i /etc/apache2/.htpasswd user1 <<< 'password'
+sudo nginx -s reload
 
 # # install git-lfs
 # echo 'Installing git-lfs...' >> log.txt
