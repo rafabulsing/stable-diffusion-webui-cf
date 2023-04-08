@@ -4,6 +4,17 @@ sudo sed -i "/#\$nrconf{restart} = 'i';/s/.*/\$nrconf{restart} = 'a';/" /etc/nee
 sudo apt-get update
 sudo apt install wget git python3 python3-venv build-essential net-tools awscli nginx apache2-utils -y
 
+# install syncthing
+sudo apt install curl apt-transport-https -y
+curl -s https://syncthing.net/release-key.txt | sudo apt-key add -
+echo "deb https://apt.syncthing.net/ syncthing release" | sudo tee /etc/apt/sources.list.d/syncthing.list
+sudo apt update
+sudo apt install syncthing -y
+sudo vim /etc/systemd/system/syncthing@.service
+sudo systemctl daemon-reload
+sudo systemctl start syncthing@$USER
+sudo systemctl enable syncthing@$USER
+
 # install CUDA (from https://developer.nvidia.com/cuda-downloads)
 # echo 'Installing CUDA...' >> log.txt
 # wget https://developer.download.nvidia.com/compute/cuda/12.0.0/local_installers/cuda_12.0.0_525.60.13_linux.run
