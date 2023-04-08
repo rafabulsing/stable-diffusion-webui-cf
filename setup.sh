@@ -5,6 +5,7 @@ sudo apt-get update
 sudo apt install wget git python3 python3-venv build-essential net-tools awscli nginx apache2-utils -y
 
 # install syncthing
+echo 'Installing Syncthing...' >> log.txt
 sudo apt install curl apt-transport-https -y
 curl -s https://syncthing.net/release-key.txt | sudo apt-key add -
 echo "deb https://apt.syncthing.net/ syncthing release" | sudo tee /etc/apt/sources.list.d/syncthing.list
