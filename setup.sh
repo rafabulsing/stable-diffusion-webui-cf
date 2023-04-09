@@ -11,7 +11,7 @@ curl -s https://syncthing.net/release-key.txt | sudo apt-key add -
 echo "deb https://apt.syncthing.net/ syncthing release" | sudo tee /etc/apt/sources.list.d/syncthing.list
 sudo apt update
 sudo apt install syncthing -y
-sudo cp stable-diffusion-webui-cf/synthing /etc/systemd/system/syncthing@.service
+sudo cp stable-diffusion-webui-cf/syncthing /etc/systemd/system/syncthing@.service
 sudo systemctl daemon-reload
 sudo systemctl enable syncthing@$USER
 sudo systemctl start syncthing@$USER
