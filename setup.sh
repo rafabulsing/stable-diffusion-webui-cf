@@ -1,11 +1,11 @@
 # disable the restart dialogue and install several packages
-echo 'Installing dependencies...' >> log.txt
+echo 'Installing dependencies...'
 sudo sed -i "/#\$nrconf{restart} = 'i';/s/.*/\$nrconf{restart} = 'a';/" /etc/needrestart/needrestart.conf
 sudo apt-get update
 sudo apt install wget git python3 python3-venv build-essential net-tools awscli nginx apache2-utils -y
 
 # install syncthing
-echo 'Installing Syncthing...' >> log.txt
+echo 'Installing Syncthing...'
 sudo apt install curl apt-transport-https -y
 curl -s https://syncthing.net/release-key.txt | sudo apt-key add -
 echo "deb https://apt.syncthing.net/ syncthing release" | sudo tee /etc/apt/sources.list.d/syncthing.list
@@ -17,12 +17,12 @@ sudo systemctl start syncthing@$USER
 sudo systemctl enable syncthing@$USER
 
 # install CUDA (from https://developer.nvidia.com/cuda-downloads)
-echo 'Installing CUDA...' >> log.txt
+echo 'Installing CUDA...'
 wget https://developer.download.nvidia.com/compute/cuda/12.0.0/local_installers/cuda_12.0.0_525.60.13_linux.run
 sudo sh cuda_12.0.0_525.60.13_linux.run --silent
 
 # configure NGINX
-echo 'Configuring NGINX...' >> log.txt
+echo 'Configuring NGINX...'
 sudo ufw allow 'Nginx HTTP'
 sudo cp stable-diffusion-webui-cf/nginx.conf /etc/nginx/nginx.conf
 
@@ -31,17 +31,17 @@ sudo htpasswd -c -i /etc/apache2/.htpasswd $2 <<< $3
 sudo nginx -s reload
 
 # install git-lfs
-echo 'Installing git-lfs...' >> log.txt
+echo 'Installing git-lfs...'
 curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | sudo bash
 sudo apt-get install git-lfs
 sudo -u ubuntu git lfs install --skip-smudge
 
 # clone SD repo
-echo 'Cloning Stable Diffusion Web UI repository...' >> log.txt
+echo 'Cloning Stable Diffusion Web UI repository...'
 sudo -u ubuntu git clone https://github.com/AUTOMATIC1111/stable-diffusion-webui
 
 # download the SD model v2.1 and move it to the SD model directory
-echo 'Downloading SD model...' >> log.txt
+echo 'Downloading SD model...'
 sudo -u ubuntu git clone --depth 1 https://huggingface.co/stabilityai/stable-diffusion-2-1-base
 cd stable-diffusion-2-1-base/
 sudo -u ubuntu git lfs pull --include "v2-1_512-ema-pruned.ckpt"
@@ -60,4 +60,4 @@ sudo chown -R ubuntu:ubuntu stable-diffusion-webui/
 
 # start the server as user 'ubuntu'
 echo 'Starting web UI...'
-sudo -u ubuntu nohup bash stable-diffusion-webui/webui.sh --listen > log.txt
+sudo -u ubuntu nohup bash stable-diffusion-webui/webui.sh --listen
