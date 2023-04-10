@@ -10,6 +10,9 @@ Parameters:
     Type: String
     Default: admin
 
+  DeviceIdParameter:
+    Type: String
+
 Resources:
   SecurityGroup:
     Type: AWS::EC2::SecurityGroup
@@ -80,5 +83,14 @@ Resources:
       Name: sd-webui/password
       Value:
         Ref: PasswordParameter
+      Tags:
+        Group: sd-webui
+  DeviceId:
+    Type: AWS::SSM::Parameter
+    Properties:
+      DataType: SecureString
+      Name: sd-webui/device-id
+      Value:
+        Ref: DeviceIdParameter
       Tags:
         Group: sd-webui
