@@ -2,7 +2,7 @@
 echo 'Installing dependencies...'
 sudo sed -i "/#\$nrconf{restart} = 'i';/s/.*/\$nrconf{restart} = 'a';/" /etc/needrestart/needrestart.conf
 sudo apt-get update
-sudo apt install wget git python3 python3-venv build-essential net-tools awscli nginx apache2-utils -y
+sudo apt install wget git python3 python3-venv build-essential net-tools awscli nginx apache2-utils libxml2-utils -y
 
 # install syncthing
 echo 'Installing Syncthing...'
@@ -27,7 +27,15 @@ sudo ufw allow 'Nginx HTTP'
 sudo cp stable-diffusion-webui-cf/nginx.conf /etc/nginx/nginx.conf
 
 # create credentials
-sudo htpasswd -c -i /etc/nginx/.htpasswd $2 <<< $3
+USERNAME=$(aws ssm get-parameter    --name "sd-webui/username" \
+                                    --with-decryption \
+                                    --query "Parameter.Value" \
+                                    --output text)
+PASSWORD=$(aws ssm get-parameter    --name "sd-webui/password" \
+                                    --with-decryption \
+                                    --query "Parameter.Value" \
+                                    --output text)
+sudo htpasswd -c -i /etc/nginx/.htpasswd $USERNAME <<< $PASSWORD
 sudo nginx -s reload
 
 # install git-lfs
