@@ -15,6 +15,7 @@ sudo cp stable-diffusion-webui-cf/syncthing /etc/systemd/system/syncthing@.servi
 sudo systemctl daemon-reload
 sudo systemctl enable syncthing@$USER
 sudo systemctl start syncthing@$USER
+echo "Synthing installed."
 
 # install CUDA (from https://developer.nvidia.com/cuda-downloads)
 # echo 'Installing CUDA...'
