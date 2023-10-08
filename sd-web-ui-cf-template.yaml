@@ -2,6 +2,9 @@ AWSTemplateFormatVersion: '2010-09-09'
 Description: A CloudFormation template to deploy the Stable Diffusion Web UI by Automatic1111
 
 Parameters:
+  KeyPairParameter:
+    Type: String
+
   DeviceIdParameter:
     Type: String
 
@@ -39,9 +42,10 @@ Resources:
           Ebs:
             VolumeSize: 100
             VolumeType: gp2
-      "Tags" : [
-            {"Key" : "Name", "Value" : "sd-web-ui-cf"},
-        ]
+      Tags:
+        - Key: Name
+          Value: sd-web-ui-cf
+      KeyName: !Ref KeyPair
       SecurityGroups:
         - Ref: SecurityGroup
       UserData:
@@ -68,3 +72,13 @@ Resources:
         Ref: DeviceIdParameter
       Tags:
         Group: sd-webui
+
+  KeyPair:
+    Type: AWS::EC2::KeyPair
+    Properties: 
+      KeyFormat: pem
+      KeyName: KeyPair
+      KeyType: rsa
+      PublicKeyMaterial: !Ref KeyPairParameter
+      Tags: 
+        - Group: sd-webui
