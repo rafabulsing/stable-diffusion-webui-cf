@@ -53,7 +53,7 @@ Resources:
             #!/bin/bash
             cd /home/ubuntu
             git clone https://github.com/rafabulsing/stable-diffusion-webui-cf.git
-            bash stable-diffusion-webui-cf/setup.sh -y >> log.txt
+            sudo -u ubuntu -c "bash stable-diffusion-webui-cf/setup.sh -y >> log.txt"
 
   MyEIP:
     Type: AWS::EC2::EIP
