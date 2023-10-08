@@ -53,15 +53,7 @@ Resources:
             #!/bin/bash
             cd /home/ubuntu
             git clone https://github.com/rafabulsing/stable-diffusion-webui-cf.git
-            sudo -u ubuntu -c "bash stable-diffusion-webui-cf/setup.sh -y >> log.txt"
-
-  MyEIP:
-    Type: AWS::EC2::EIP
-  MyEIPAssociation:
-    Type: AWS::EC2::EIPAssociation
-    Properties:
-      AllocationId: !GetAtt MyEIP.AllocationId
-      InstanceId: !Ref EC2Instance
+            sudo -u ubuntu bash stable-diffusion-webui-cf/setup.sh -y >> log.txt
 
   DeviceId:
     Type: AWS::SSM::Parameter
