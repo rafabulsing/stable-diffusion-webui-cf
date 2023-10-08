@@ -2,7 +2,7 @@
 echo 'Installing dependencies...'
 sudo sed -i "/#\$nrconf{restart} = 'i';/s/.*/\$nrconf{restart} = 'a';/" /etc/needrestart/needrestart.conf
 sudo apt-get update
-sudo apt install wget git python3 python3-venv build-essential net-tools awscli nginx apache2-utils libxml2-utils -y
+sudo apt install wget git python3 python3-venv build-essential net-tools micro awscli apache2-utils libxml2-utils libgoogle-perftools4 libtcmalloc-minimal4 -y
 
 # install syncthing
 echo 'Installing Syncthing...'
@@ -18,25 +18,8 @@ sudo systemctl start syncthing@$USER
 
 # install CUDA (from https://developer.nvidia.com/cuda-downloads)
 echo 'Installing CUDA...'
-wget https://developer.download.nvidia.com/compute/cuda/12.0.0/local_installers/cuda_12.0.0_525.60.13_linux.run
-sudo sh cuda_12.0.0_525.60.13_linux.run --silent
-
-# configure NGINX
-echo 'Configuring NGINX...'
-sudo ufw allow 'Nginx HTTP'
-sudo cp stable-diffusion-webui-cf/nginx.conf /etc/nginx/nginx.conf
-
-# create credentials
-USERNAME=$(aws ssm get-parameter    --name "sd-webui/username" \
-                                    --with-decryption \
-                                    --query "Parameter.Value" \
-                                    --output text)
-PASSWORD=$(aws ssm get-parameter    --name "sd-webui/password" \
-                                    --with-decryption \
-                                    --query "Parameter.Value" \
-                                    --output text)
-sudo htpasswd -c -i /etc/nginx/.htpasswd $USERNAME <<< $PASSWORD
-sudo nginx -s reload
+wget https://developer.download.nvidia.com/compute/cuda/12.2.2/local_installers/cuda_12.2.2_535.104.05_linux.run
+sudo sh cuda_12.2.2_535.104.05_linux.run --silent
 
 # install git-lfs
 echo 'Installing git-lfs...'
@@ -68,4 +51,4 @@ sudo chown -R ubuntu:ubuntu stable-diffusion-webui/
 
 # start the server as user 'ubuntu'
 echo 'Starting web UI...'
-sudo -u ubuntu nohup bash stable-diffusion-webui/webui.sh --listen
+sudo -u ubuntu nohup bash stable-diffusion-webui/webui.sh --xformers

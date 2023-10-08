@@ -2,14 +2,6 @@ AWSTemplateFormatVersion: '2010-09-09'
 Description: A CloudFormation template to deploy the Stable Diffusion Web UI by Automatic1111
 
 Parameters:
-  UsernameParameter:
-    Type: String
-    Default: admin
-    
-  PasswordParameter:
-    Type: String
-    Default: admin
-
   DeviceIdParameter:
     Type: String
 
@@ -45,7 +37,7 @@ Resources:
       BlockDeviceMappings:
         - DeviceName: /dev/sda1
           Ebs:
-            VolumeSize: 300
+            VolumeSize: 100
             VolumeType: gp2
       "Tags" : [
             {"Key" : "Name", "Value" : "sd-web-ui-cf"},
@@ -67,29 +59,11 @@ Resources:
       AllocationId: !GetAtt MyEIP.AllocationId
       InstanceId: !Ref EC2Instance
 
-  Username:
-    Type: AWS::SSM::Parameter
-    Properties:
-      DataType: SecureString
-      Name: sd-webui/username
-      Value:
-        Ref: UsernameParameter
-      Tags:
-        Group: sd-webui
-  Password:
-    Type: AWS::SSM::Parameter
-    Properties:
-      DataType: SecureString
-      Name: sd-webui/password
-      Value:
-        Ref: PasswordParameter
-      Tags:
-        Group: sd-webui
   DeviceId:
     Type: AWS::SSM::Parameter
     Properties:
-      DataType: SecureString
-      Name: sd-webui/device-id
+      Type: String
+      Name: /sd-webui/device-id
       Value:
         Ref: DeviceIdParameter
       Tags:
