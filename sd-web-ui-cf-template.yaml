@@ -80,5 +80,6 @@ Resources:
       KeyName: KeyPair
       KeyType: rsa
       PublicKeyMaterial: !Ref KeyPairParameter
-      Tags: 
-        - Group: sd-webui
+      Tags:
+        - Key: Group
+          Value: sd-webui
