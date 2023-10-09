@@ -51,4 +51,5 @@ sudo chown -R ubuntu:ubuntu stable-diffusion-webui/
 # start the server as user 'ubuntu'
 echo 'Starting web UI...'
 cd stable-diffusion-webui
+cp webui.sh ../webui.sh
 sudo -u ubuntu nohup bash ./webui.sh --xformers
