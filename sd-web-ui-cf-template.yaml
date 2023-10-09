@@ -43,8 +43,10 @@ Resources:
             VolumeSize: 100
             VolumeType: gp2
       Tags:
-        - Key: Group
+        - Key: Name
           Value: sd-web-ui-cf
+        - Key: Group
+          Value: sd-webui
       KeyName: !Ref KeyPair
       SecurityGroups:
         - Ref: SecurityGroup
