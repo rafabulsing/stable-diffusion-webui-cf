@@ -3,6 +3,26 @@ A browser interface based on Gradio library for Stable Diffusion.
 
 ![](images/txt2img_Screenshot.png)
 
+# Commands
+
+## Start
+
+aws ec2 start-instances --instance-ids $(aws ec2 describe-instances --filters "Name=tag:Group,Values=sd-webui" --query 'Reservations[].Instances[].InstanceId' --output text)
+
+## Stop
+
+aws ec2 stop-instances --instance-ids $(aws ec2 describe-instances --filters "Name=tag:Group,Values=sd-webui" --query 'Reservations[].Instances[].InstanceId' --output text)
+
+## Create tunnel
+
+ssh -N -L 8385:127.0.0.1:8384 -L 7860:127.0.0.1:7860 ("ubuntu@ec2-" + "$(aws ec2 describe-instances --filters "Name=tag:Group,Values=sd-webui" --query 'Reservations[].Instances[].PublicIpAddress' --output text)".replace(".", "-") + ".compute-1.amazonaws.com") -y
+
+## Remote into
+
+ssh ("ubuntu@ec2-" + "$(aws ec2 describe-instances --filters "Name=tag:Group,Values=sd-webui" --query 'Reservations[].Instances[].PublicIpAddress' --output text)".replace(".", "-") + ".compute-1.amazonaws.com")
+
+
+
 ## AWS EC2 Version
 This is a fork of https://github.com/marshmellow77/stable-diffusion-webui/.
 
